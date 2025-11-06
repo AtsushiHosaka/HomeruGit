@@ -52,12 +52,9 @@ if [ ${TOTAL_CHANGES} -eq 0 ]; then
 else
     # 通常のランダムメッセージ（すべてにTOTAL_CHANGESを含める）
     MESSAGES=(
-        "${TOTAL_CHANGES}行も変更したよ！開発本当に偉い！"
+        "${TOTAL_CHANGES}行も開発できたね！開発本当に偉い！"
         "${TOTAL_CHANGES}行も変更したよ！さすが！"
-        "${TOTAL_CHANGES}行も変更したよ！今日も開発お疲れ様ー！"
-        "${TOTAL_CHANGES}行も開発できたね！すごい！"
-        "${TOTAL_CHANGES}行も進捗出せてる！いいね！"
-        "${TOTAL_CHANGES}行も書けたね！この調子！"
+        "${TOTAL_CHANGES}行も進捗出せたね！今日も開発お疲れ様ー！"
     )
 
     # 配列の要素数からランダムなインデックスを生成
