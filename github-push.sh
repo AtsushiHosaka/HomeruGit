@@ -46,19 +46,29 @@ if [ ${PUSH_STATUS} -ne 0 ]; then
 fi
 
 # 4. プッシュ成功時のランダムメッセージ
-MESSAGES=(
-    "開発本当に偉いです！"
-    "${TOTAL_CHANGES}行も変更したよ！さすが！"
-    "今日も開発お疲れ様ー！"
-)
+# initial commit（変更行数が0の場合）の特別なメッセージ
+if [ ${TOTAL_CHANGES} -eq 0 ]; then
+    MESSAGE="リポジトリが作成できたね！これからgithubを活用して頑張っていこう！"
+else
+    # 通常のランダムメッセージ（すべてにTOTAL_CHANGESを含める）
+    MESSAGES=(
+        "${TOTAL_CHANGES}行も変更したよ！開発本当に偉い！"
+        "${TOTAL_CHANGES}行も変更したよ！さすが！"
+        "${TOTAL_CHANGES}行も変更したよ！今日も開発お疲れ様ー！"
+        "${TOTAL_CHANGES}行も開発できたね！すごい！"
+        "${TOTAL_CHANGES}行も進捗出せてる！いいね！"
+        "${TOTAL_CHANGES}行も書けたね！この調子！"
+    )
 
-# 配列の要素数からランダムなインデックスを生成
-# ${#MESSAGES[@]}で配列の要素数を取得し、RANDOM % 要素数で0から要素数-1の乱数を生成
-RANDOM_INDEX=$(( RANDOM % ${#MESSAGES[@]} ))
+    # 配列の要素数からランダムなインデックスを生成
+    # ${#MESSAGES[@]}で配列の要素数を取得し、RANDOM % 要素数で0から要素数-1の乱数を生成
+    RANDOM_INDEX=$(( RANDOM % ${#MESSAGES[@]} ))
+    MESSAGE="${MESSAGES[${RANDOM_INDEX}]}"
+fi
 
 echo ""
 echo "------------------------------------------------"
 echo "✅ GitHubへのプッシュが完了しました！"
 echo ""
-echo "👏 ${MESSAGES[${RANDOM_INDEX}]}"
+echo "👏 ${MESSAGE}"
 echo "------------------------------------------------"
