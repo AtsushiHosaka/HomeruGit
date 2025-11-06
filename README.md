@@ -1,6 +1,6 @@
 # HomeruGit
 
-GitHubが使えたの！？えらーい！
+GitHubを使ったの！？えらーい！
 
 ## 概要
 
