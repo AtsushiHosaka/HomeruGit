@@ -6,31 +6,103 @@ GitHubを使ったの！？えらーい！
 
 HomeruGitは、Git初心者のための優しいコマンドラッパーです。複雑なGit操作を簡単なコマンドで実行でき、毎回褒めてくれます！
 
+## インストール
+
+### npm (推奨)
+
+```bash
+npm install -g homeru-git
+```
+
+### npx (インストール不要)
+
+```bash
+npx homeru-git gh-init
+```
+
+### 手動インストール
+
+```bash
+git clone https://github.com/AtsushiHosaka/HomeruGit.git
+cd HomeruGit
+chmod +x bin/*.sh
+# gh-init を実行するとエイリアス設定もできます
+./bin/gh-init.sh
+```
+
+## 初期設定
+
+```bash
+gh-init
+```
+
+初回実行時に以下を自動で設定します：
+1. **GitHub認証 (PAT)** - 対話形式でトークン設定をガイド
+2. **エイリアス設定** - ~/.zshrc または ~/.bashrc に追加
+3. **リポジトリ作成** - GitHubにリポジトリを作成
+
 ## コマンド一覧
 
 | コマンド | 説明 |
 |---------|------|
+| `gh-init [name]` | 初期設定 + リポジトリ作成 |
 | `gh-status` | 現在の状況を表示し、次にやることを提案 |
-| `gh-push [branch]` | 変更をコミット＆プッシュ（main以外はPR自動作成） |
+| `gh-push` | 変更をコミット＆プッシュ（main以外はPR自動作成） |
 | `gh-branch <branch>` | ブランチ切り替え（なければ作成 + pull自動実行） |
 | `gh-pull` | 現在のブランチで最新の変更を取得 |
 
-## セットアップ
-
-```bash
-# スクリプトに実行権限を付与
-chmod +x gh-status.sh gh-push.sh gh-branch.sh gh-pull.sh
-
-# エイリアス設定（~/.bashrc または ~/.zshrc に追加）
-alias gh-status='/path/to/HomeruGit/gh-status.sh'
-alias gh-push='/path/to/HomeruGit/gh-push.sh'
-alias gh-branch='/path/to/HomeruGit/gh-branch.sh'
-alias gh-pull='/path/to/HomeruGit/gh-pull.sh'
-```
-
 ## 使い方
 
-### 現在の状況を確認する
+### 1. プロジェクトを始める
+
+```bash
+mkdir my-project && cd my-project
+gh-init
+
+# ================================================
+# 🚀 HomeruGit 初期設定
+# ================================================
+#
+# 🔑 GitHubにログインしていません
+# 今からログイン設定を行います！
+#
+# ================================================
+# 📝 Personal Access Token (PAT) の取得方法
+# ================================================
+# 1. 以下のURLをブラウザで開いてください:
+#    https://github.com/settings/tokens/new
+# ...
+```
+
+### 2. 開発する
+
+```bash
+# ファイルを編集して...
+gh-push
+
+# 🔍 ブランチ: main
+# 💬 コミットメッセージ: 12/02 15:30
+# 📤 'main'ブランチにプッシュ中...
+# ✅ プッシュが完了しました！
+# 👏 50行も開発できたね！開発本当に偉い！
+```
+
+### 3. ブランチで開発する
+
+```bash
+# 新しいブランチを作成
+gh-branch feature/awesome
+
+# コードを書いて...
+gh-push
+
+# ✅ プッシュが完了しました！
+# 🔀 PRを作成中...
+# 🎉 PRを作成しました！
+# 👏 PRまで作っちゃった！レビュー待ちだね、わくわく！
+```
+
+### 4. 状況を確認する
 
 ```bash
 gh-status
@@ -39,81 +111,24 @@ gh-status
 # 📊 HomeruGit ステータス
 # ================================================
 #
-# 📍 現在のブランチ: feature/new-feature
-#
-# 📋 ローカルブランチ一覧:
-#    → feature/new-feature
-#      main
-#
-# 📜 最近のコミット (feature/new-feature):
-#    abc1234 12/02 15:30
-#    def5678 12/02 14:00
-#
-# 🔀 PR状態:
-#    📬 オープン中: feature/new-feature: 2024/12/02 15:30
+# 📍 現在のブランチ: feature/awesome
+# 🔀 PR状態: 📬 オープン中
 #
 # ================================================
 # 💡 次にやること
 # ================================================
-#
 # 📌 PRがオープン中です！
 #    → GitHubでPRをレビュー＆マージしよう！
-#
-# ================================================
-# 👏 状況確認する癖、素晴らしい！
-# ================================================
 ```
 
-### 新しいブランチで開発を始める
-
-```bash
-# 新しいブランチを作成して切り替え
-gh-branch feature/new-feature
-
-# 🔀 ブランチ 'feature/new-feature' に切り替え中...
-# ✅ ブランチ 'feature/new-feature' に切り替えました！
-# 👏 新しいブランチを作ったね！挑戦する姿勢が素晴らしい！
-```
-
-### 変更をプッシュする
-
-```bash
-# 現在のブランチに変更をプッシュ
-gh-push
-
-# 🔍 ブランチ: feature/new-feature
-# 💬 コミットメッセージ: 12/02 15:30
-# 📤 'feature/new-feature'ブランチにプッシュ中...
-# ✅ プッシュが完了しました！
-# 👏 120行の変更をプッシュできたね！ブランチ運用えらい！
-# 🔀 PRを作成中...
-# 🎉 PRを作成しました！
-# 👏 PRまで作っちゃった！レビュー待ちだね、わくわく！
-```
-
-### mainブランチに戻る
+### 5. mainに戻る
 
 ```bash
 gh-branch main
 
-# 🔀 ブランチ 'main' に切り替え中...
 # ✅ ブランチ 'main' に切り替えました！
-# 👏 mainブランチに戻ってきたね！お疲れ様！
 # 📥 リモートから最新の変更を取得中...
 # 👏 最新の状態に同期できたよ！準備万端！
-```
-
-### 最新の変更を取得する
-
-```bash
-gh-pull
-
-# 📍 現在のブランチ: main
-# 🔍 リモートの状態を確認中...
-# 📥 最新の変更を取得中...
-# ✅ プルが完了しました！
-# 📊 3件のコミットを取得しました
-# 👏 最新の状態になったよ！常に同期する姿勢、えらい！
 ```
 
 ## 特徴
@@ -121,18 +136,18 @@ gh-pull
 - **自動化**: add, commit, push を一括実行
 - **PR自動作成**: main以外のブランチでプッシュすると自動でPR作成
 - **同期の自動化**: ブランチ切り替え時に自動でpull
-- **安全設計**: 未コミットの変更がある場合は警告
+- **安全設計**: 未コミットの変更がある場合は選択肢を提示
 - **褒めてくれる**: 毎回の操作で励ましのメッセージ！
 
 ## 必要環境
 
+- Node.js >= 14 (npmでインストールする場合)
 - Git
-- GitHub CLI (`gh`) - PR作成機能に必要
-
-## 旧コマンド
-
-`github-push.sh` は引き続き使用可能です（mainブランチへの直接プッシュ用）。
+- GitHub CLI (`gh`)
+  - Mac: `brew install gh`
+  - Windows: `winget install GitHub.cli`
+  - Linux: https://github.com/cli/cli#installation
 
 ## ライセンス
 
-自由にご利用ください。
+MIT

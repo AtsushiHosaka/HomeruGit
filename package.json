@@ -1,0 +1,31 @@
+{
+  "name": "homeru-git",
+  "version": "1.0.0",
+  "description": "Git初心者のための優しいコマンドラッパー。毎回褒めてくれます！",
+  "bin": {
+    "gh-init": "./bin/gh-init.sh",
+    "gh-status": "./bin/gh-status.sh",
+    "gh-push": "./bin/gh-push.sh",
+    "gh-branch": "./bin/gh-branch.sh",
+    "gh-pull": "./bin/gh-pull.sh"
+  },
+  "scripts": {
+    "postinstall": "chmod +x ./bin/*.sh"
+  },
+  "keywords": [
+    "git",
+    "github",
+    "cli",
+    "beginner",
+    "japanese"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AtsushiHosaka/HomeruGit.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
